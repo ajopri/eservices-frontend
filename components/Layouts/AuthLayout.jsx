@@ -25,7 +25,8 @@ export default function Authlayout({ children, pageTitle }) {
                                     ? 'hidden'
                                     : ''
                             }`}
-                            onClick={() => router.push('/activate')}>
+                            onClick={() => router.push('/activate')}
+                        >
                             activation
                         </Button>
                         <Button
@@ -33,15 +34,19 @@ export default function Authlayout({ children, pageTitle }) {
                             className={`px-3 py-2 text-sm font-semibold bg-white rounded-md text-maha-500 hover:bg-maha-green-400 hover:text-white ${
                                 router.pathname === '/login' ? 'hidden' : ''
                             }`}
-                            onClick={() => router.push('/login')}>
+                            onClick={() => router.push('/login')}
+                        >
                             login
                         </Button>
                         <Button
                             type="button"
                             className={`px-3 py-2 text-sm font-semibold bg-white rounded-md text-maha-500 hover:bg-maha-green-400 hover:text-white ${
-                                router.pathname === '/login/[admin]' ? 'hidden' : ''
+                                router.pathname === '/login/[admin]'
+                                    ? 'hidden'
+                                    : ''
                             }`}
-                            onClick={() => router.push('/login/admin')}>
+                            onClick={() => router.push('/login/admin')}
+                        >
                             admin
                         </Button>
                     </div>

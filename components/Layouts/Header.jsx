@@ -5,14 +5,13 @@ import {
     faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useAuth } from 'hooks/auth'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Tooltip } from '@nextui-org/react'
-import { DropdownButton } from '@/components/Button/Dropdown'
+import AuthContext from '@/context/AuthContext'
 
-export default function Header({ user }) {
+export default function Header() {
     const today = new Date()
-    const formatDate = dateString => {
+    const formatDate = (dateString) => {
         const options = {
             year: 'numeric',
             month: 'long',
@@ -25,7 +24,7 @@ export default function Header({ user }) {
     const [openProfile, setOpenProfile] = useState(false)
     const handleProfile = () => setOpenProfile(!openProfile)
 
-    const { logout } = useAuth()
+    const { logout, user, isLoading } = useContext(AuthContext)
 
     return (
         <header className="z-10 flex justify-between h-16 px-4 py-2 text-xs text-gray-500 shadow">
@@ -49,9 +48,9 @@ export default function Header({ user }) {
                     </div>
 
                     {/* Notification */}
-                    <div className="px-4">
+                    {/* <div className="px-4">
                         <FontAwesomeIcon icon={faBell} />
-                    </div>
+                    </div> */}
 
                     {/* navbar user */}
                     <div className="flex items-center pr-4 space-x-4">
@@ -60,19 +59,33 @@ export default function Header({ user }) {
                         </span>{' '}
                         <span
                             className="hidden cursor-pointer sm:block"
-                            onClick={handleProfile}>
+                            onClick={handleProfile}
+                        >
                             {user?.name}
                         </span>
                         <Tooltip
                             content="Logout"
                             placement="left"
-                            color="error">
+                            color="error"
+                        >
                             <span
                                 className={`${
                                     !openProfile ? 'hidden' : ''
                                 } cursor-pointer hover:text-red-600 text-red-400 font-bold`}
-                                onClick={logout}>
-                                <FontAwesomeIcon icon={faPowerOff} size="lg" />
+                                onClick={() => logout()}
+                            >
+                                {isLoading ? (
+                                    <FontAwesomeIcon
+                                        icon={faPowerOff}
+                                        size="lg"
+                                        spin
+                                    />
+                                ) : (
+                                    <FontAwesomeIcon
+                                        icon={faPowerOff}
+                                        size="lg"
+                                    />
+                                )}
                             </span>
                         </Tooltip>
                     </div>
