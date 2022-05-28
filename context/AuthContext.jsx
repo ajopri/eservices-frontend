@@ -59,7 +59,6 @@ export function AuthProvider({ children }) {
 
         if (res.ok) {
             setUser(data.user)
-            router.push('/dashboard')
         } else {
             setUser(null)
         }

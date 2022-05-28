@@ -57,7 +57,7 @@ export default function Sidebar() {
                 <Image src="/line.svg" width={90} height={10} />
                 {[
                     ['Dashboard', '/dashboard', faChartBar],
-                    ['Order Management', '/orders', faShoppingCart],
+                    ['Order Management', '/order-management', faShoppingCart],
                     ['Invoices', '/invoices', faDollarSign],
                     [
                         'Product Information',

@@ -6,27 +6,27 @@ const cookie = require('cookie')
 export default async (req, res) => {
     // checking method req
     if (req.method === 'GET') {
-        // Parse the cookies on the request
-        const cookies = cookie.parse(req.headers.cookie || '')
+        if (!req.headers.cookie) {
+            res.status(403).json({ message: 'Not Authorized' })
+            return
+        }
 
-        // Get the visitor name set in the cookie
-        const { token } = cookies
+        // Parse the cookies on the request
+        const { token } = cookie.parse(req.headers.cookie)
 
         const apiRes = await fetch(`${API_URL}/api/me`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
         })
 
-        const data = await apiRes
-        console.log(apiRes)
+        const user = await apiRes.json()
 
         if (apiRes.ok) {
-            res.status(200).json({ user: data })
+            res.status(200).json({ user })
         } else {
-            res.status(data.statusCode).json({ message: data.message })
+            res.status(403).json({ message: 'User forbidden' })
         }
     } else {
         res.setHeader('Allow', ['GET'])

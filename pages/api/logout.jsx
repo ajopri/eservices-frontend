@@ -32,7 +32,7 @@ export default async (req, res) => {
                     sameSite: 'strict',
                     path: '/',
                 }),
-                serialize('sap-token', '', {
+                serialize('sapToken', '', {
                     httpOnly: true,
                     secure: process.env.NODE_ENV !== 'development',
                     maxAge: new Date(0), // 1 day
